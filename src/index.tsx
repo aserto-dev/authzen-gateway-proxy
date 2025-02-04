@@ -9,7 +9,7 @@ root.render(
       vendor="Aserto"
       logo="logo.png"
       url="https://www.aserto.com"
-      pdpurl="https://authzen-proxy.demo.aserto.com"
+      pdpurl="https://authzen-gateway-proxy.demo.aserto.com"
     />
   </React.StrictMode>
 )

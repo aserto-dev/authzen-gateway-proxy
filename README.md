@@ -1,6 +1,6 @@
-# authzen-proxy
+# authzen-gateway-proxy
 
-Implementation of the AuthZEN evaluations API.
+Implementation of the AuthZEN evaluations API for the API Gateway scenario.
 
 ## Install dependencies
 

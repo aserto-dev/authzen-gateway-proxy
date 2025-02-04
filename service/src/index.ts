@@ -33,7 +33,11 @@ async function evaluationHandler(req: JWTRequest, res: Response) {
   const request: EvaluationRequest = req.body
   const identity = request.subject?.id
   const actionName = request.action?.name
-  const resource = request.resource
+  const resource = {
+    object_type: request.resource.type,
+    object_id: `todo-authzen:${actionName}:${request.resource.id}`,
+    relation: 'can_invoke'
+  }
   let decision = false
   if (identity && actionName) {
     try {
@@ -41,7 +45,7 @@ async function evaluationHandler(req: JWTRequest, res: Response) {
         (await authClient.Is({
           identityContext: identityContext(identity, 'SUB'),
           policyInstance: policyInstance(instanceName, instanceLabel),
-          policyContext: policyContext(`todoApp.${actionName}`, ['allowed']),
+          policyContext: policyContext(`rebac.check`, ['allowed']),
           resourceContext: { ...resource },
         })) ?? false
     } catch (e) {
@@ -56,6 +60,7 @@ async function evaluationHandler(req: JWTRequest, res: Response) {
   res.status(200).send(response)
 }
 
+// TODO: fix this if AuthZEN API Gateway interop scenario requires /evaluations
 async function evaluationsHandler(req: JWTRequest, res: Response) {
   const request: EvaluationsRequest = req.body
   const evaluations = request.evaluations?.map((e) => ({
