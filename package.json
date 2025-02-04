@@ -1,6 +1,6 @@
 {
   "name": "authzen-gateway-proxy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "AuthZEN Gateway to Aserto proxy",
   "main": "src/service/index.ts",
   "type": "module",
