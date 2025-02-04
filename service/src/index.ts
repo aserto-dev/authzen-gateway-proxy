@@ -26,16 +26,18 @@ const authClient = new Authorizer({
 
 const PORT = authzOptions.port ?? 8080
 
-const instanceName = authzOptions.instanceName || 'todo'
-const instanceLabel = authzOptions.instanceLabel || 'todo'
+const instanceName = authzOptions.instanceName || 'api-auth'
+const instanceLabel = authzOptions.instanceLabel || 'api-auth'
+
+const serviceName = authzOptions.serviceName || 'authzen-todo'
 
 async function evaluationHandler(req: JWTRequest, res: Response) {
   const request: EvaluationRequest = req.body
   const identity = request.subject?.id
   const actionName = request.action?.name
   const resource = {
-    object_type: request.resource.type,
-    object_id: `todo-authzen:${actionName}:${request.resource.id}`,
+    object_type: 'endpoint',
+    object_id: `${serviceName}:${actionName}:${request.resource.id}`,
     relation: 'can_invoke'
   }
   let decision = false

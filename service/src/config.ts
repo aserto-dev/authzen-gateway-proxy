@@ -1,6 +1,6 @@
 import { AuthzOptions } from '@aserto/aserto-node'
 
-const getConfig: () => AuthzOptions & { port?: string } = () => {
+const getConfig: () => AuthzOptions & { serviceName?: string } & { port?: string } = () => {
   const {
     ASERTO_AUTHORIZER_SERVICE_URL,
     ASERTO_POLICY_ROOT,
@@ -9,6 +9,7 @@ const getConfig: () => AuthzOptions & { port?: string } = () => {
     ASERTO_POLICY_INSTANCE_NAME,
     ASERTO_POLICY_INSTANCE_LABEL,
     ASERTO_AUTHORIZER_CERT_PATH,
+    ASERTO_SERVICE_NAME,
     PORT,
   } = process.env
 
@@ -33,6 +34,9 @@ const getConfig: () => AuthzOptions & { port?: string } = () => {
     }),
     ...(ASERTO_POLICY_INSTANCE_LABEL && {
       instanceLabel: ASERTO_POLICY_INSTANCE_LABEL,
+    }),
+    ...(ASERTO_SERVICE_NAME && {
+      serviceName: ASERTO_SERVICE_NAME,
     }),
     ...(ASERTO_AUTHORIZER_CERT_PATH && {
       authorizerCertCAFile: ASERTO_AUTHORIZER_CERT_PATH,
